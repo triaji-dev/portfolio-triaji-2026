@@ -29,7 +29,7 @@ export const ProfileSummaryBase: React.FC = () => {
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: false, amount: 0.1 }}
-          transition={{ type: 'spring', stiffness: 150, damping: 70, delay: 0 }}
+          transition={{ type: 'spring' as const, stiffness: 150, damping: 70, delay: 0 }}
         >
           <WhyChoose className='h-full w-full' />
         </motion.div>
@@ -40,7 +40,7 @@ export const ProfileSummaryBase: React.FC = () => {
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: false, amount: 0.1 }}
           transition={{
-            type: 'spring',
+            type: 'spring' as const,
             stiffness: 150,
             damping: 70,
             delay: 0.1,
@@ -55,7 +55,7 @@ export const ProfileSummaryBase: React.FC = () => {
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: false, amount: 0.1 }}
           transition={{
-            type: 'spring',
+            type: 'spring' as const,
             stiffness: 150,
             damping: 70,
             delay: 0.2,
@@ -70,7 +70,7 @@ export const ProfileSummaryBase: React.FC = () => {
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: false, amount: 0.1 }}
           transition={{
-            type: 'spring',
+            type: 'spring' as const,
             stiffness: 150,
             damping: 70,
             delay: 0.3,
@@ -85,7 +85,7 @@ export const ProfileSummaryBase: React.FC = () => {
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: false, amount: 0.1 }}
           transition={{
-            type: 'spring',
+            type: 'spring' as const,
             stiffness: 150,
             damping: 70,
             delay: 0.4,

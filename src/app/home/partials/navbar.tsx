@@ -22,14 +22,14 @@ const navVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: 'easeOut',
+      ease: 'easeOut' as const,
     },
   },
   hidden: {
     y: '-100%',
     transition: {
       duration: 0.4,
-      ease: 'easeIn',
+      ease: 'easeIn' as const,
     },
   },
 };
@@ -105,7 +105,7 @@ const Navbar = () => {
         </nav>
         <Button
           asChild
-          className='!hidden transition-all duration-300 lg:!flex'
+          className='hidden! transition-all duration-300 lg:flex!'
         >
           <Link href='#contact'>
             <Image

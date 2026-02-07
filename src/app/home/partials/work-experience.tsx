@@ -126,7 +126,7 @@ const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({
 }) => {
   return (
     <div className='relative pl-10'>
-      <div className='absolute left-1 flex h-6 w-6 items-center justify-center rounded-full border-1 border-dashed border-neutral-400'>
+      <div className='absolute left-1 flex h-6 w-6 items-center justify-center rounded-full border border-dashed border-neutral-400'>
         <motion.div
           className='bg-primary-200 absolute top-1/2 left-1/2 z-10 aspect-square h-[16px] w-auto -translate-x-1/2 -translate-y-1/2 rounded-full'
           animate={{
@@ -134,7 +134,7 @@ const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({
           }}
           transition={{
             duration: 2,
-            ease: 'easeInOut',
+            ease: 'easeInOut' as const,
             repeat: Infinity,
           }}
         />
@@ -155,7 +155,7 @@ const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({
       </div>
 
       {!isLast && (
-        <div className='absolute top-6 left-4 z-0 h-full border-l-1 border-dashed border-neutral-400'></div>
+        <div className='absolute top-6 left-4 z-0 h-full border-l border-dashed border-neutral-400'></div>
       )}
     </div>
   );
