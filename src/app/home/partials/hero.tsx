@@ -18,7 +18,7 @@ const Hero = () => {
     whileInView: { x: 0, opacity: 1 },
     viewport: { once: false, amount: 0.1 },
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 150,
       damping: 70,
     },
@@ -28,7 +28,7 @@ const Hero = () => {
     whileInView: { x: 0, opacity: 1 },
     viewport: { once: false, amount: 0.1 },
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 150,
       damping: 70,
     },
@@ -38,7 +38,7 @@ const Hero = () => {
     whileInView: { x: 0, y: 0, opacity: 1 },
     viewport: { once: false, amount: 0.1 },
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 150,
       damping: 70,
     },
@@ -48,7 +48,7 @@ const Hero = () => {
     whileInView: { y: 0, opacity: 1 },
     viewport: { once: false, amount: 0.1 },
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 150,
       damping: 70,
     },
@@ -206,11 +206,11 @@ const Hero = () => {
         </div>
       </div>
       <div
-        className='bg-primary-400 !pointer-events-none absolute left-1/2 z-[-1] ml-[-1vw] h-[150px] w-full -translate-x-1/2 -rotate-[1.89deg]'
+        className='bg-primary-400 pointer-events-none! absolute left-1/2 z-[-1] ml-[-1vw] h-[150px] w-full -translate-x-1/2 -rotate-[1.89deg]'
         style={{ top: generateClamp(550, 750, 1440) }}
       />
       <div
-        className='bg-base-white !pointer-events-none absolute left-1/2 z-[1] h-[100px] w-full -translate-x-1/2 -rotate-[1.89deg]'
+        className='bg-base-white pointer-events-none! absolute left-1/2 z-1 h-[100px] w-full -translate-x-1/2 -rotate-[1.89deg]'
         style={{ top: generateClamp(700, 915, 1440) }}
       />
     </>
