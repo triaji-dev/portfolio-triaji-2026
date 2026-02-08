@@ -52,8 +52,8 @@ const ExpertSkill: React.FC<ExpertSkillProps> = ({ className }) => {
         <Marquee className='[--duration:35s]' pauseOnHover reverse>
           {skillRow2}
         </Marquee>
-        <div className='absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-neutral-900 to-transparent' />
-        <div className='absolute inset-y-0 right-0 w-[15%] bg-gradient-to-l from-neutral-900 to-transparent' />
+        <div className='absolute inset-y-0 left-0 w-[15%] bg-linear-to-r from-neutral-900 to-transparent' />
+        <div className='absolute inset-y-0 right-0 w-[15%] bg-linear-to-l from-neutral-900 to-transparent' />
       </div>
     </div>
   );

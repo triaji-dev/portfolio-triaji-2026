@@ -19,7 +19,7 @@ const Experience: React.FC<ExperienceProps> = ({ className }) => (
       fill
       className='object-cover'
     />
-    <div className='absolute inset-x-0 bottom-0 h-[100%] bg-gradient-to-t from-black to-transparent' />
+    <div className='absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-black to-transparent' />
 
     <div className='md:display-xl-bold text-base-white display-md-bold z-10 mt-19 flex w-full flex-col items-center'>
       <h3 className='text-center'>5+ Years</h3>
@@ -32,7 +32,7 @@ const Experience: React.FC<ExperienceProps> = ({ className }) => (
         '/subimages/subimage-2.jpg',
         '/subimages/subimage-4.jpg',
       ].map((src) => (
-        <div key={src} className='relative aspect-[4/3] flex-1'>
+        <div key={src} className='relative aspect-4/3 flex-1'>
           <Image
             src={src}
             alt='experience-subimage'
