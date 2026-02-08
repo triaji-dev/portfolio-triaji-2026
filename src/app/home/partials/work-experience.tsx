@@ -103,18 +103,14 @@ const CardsExperience: React.FC<CardsExperienceProps> = ({
   className,
 }) => {
   return (
-    <motion.div
-      className={cn(
-        'grid grid-cols-[14.5rem_1.5rem_auto] gap-y-17 transition-all duration-300 hover:bg-neutral-50/50 rounded-2xl p-4 -mx-4',
-        className
-      )}
-      whileHover={{ scale: 1.01 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+    <div
+      className={cn('grid grid-cols-[14.5rem_1.5rem_auto] gap-y-17', className)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
+
 
 type MobileExperienceItemProps = {
   icon: string;

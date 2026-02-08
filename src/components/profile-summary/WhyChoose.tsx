@@ -109,8 +109,8 @@ const WhyChoose: React.FC<WhyChooseProps> = ({ className }) => {
         <Marquee className='[--duration:35s]' pauseOnHover>
           {row3}
         </Marquee>
-        <div className='from-secondary-300 absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r to-transparent' />
-        <div className='from-secondary-300 absolute inset-y-0 right-0 w-[15%] bg-gradient-to-l to-transparent' />
+        <div className='from-secondary-300 absolute inset-y-0 left-0 w-[15%] bg-linear-to-r to-transparent' />
+        <div className='from-secondary-300 absolute inset-y-0 right-0 w-[15%] bg-linear-to-l to-transparent' />
       </div>
     </div>
   );

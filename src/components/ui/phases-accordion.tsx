@@ -43,7 +43,7 @@ export const PhasesAccordionItem: React.FC<PhasesAccordionItemProps> = ({
   return (
     <AccordionItem
       value={id}
-      className='mb-5 border-b-1 border-neutral-300 last:mb-0 last:pb-0 md:mb-8'
+      className='mb-5 border-b border-neutral-300 last:mb-0 last:pb-0 md:mb-8'
     >
       <AccordionTrigger>{title}</AccordionTrigger>
       <AccordionContent>{description}</AccordionContent>
