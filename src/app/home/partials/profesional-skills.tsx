@@ -120,15 +120,46 @@ export const ProfessionalSkills = () => {
   );
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 50,
+      damping: 15,
+      mass: 1,
+    },
+  },
+};
+
 type SkillCardsProps = {
   children: React.ReactNode;
 };
 
 const SkillCards: React.FC<SkillCardsProps> = ({ children }) => {
   return (
-    <div className='flex w-full flex-wrap justify-center gap-4 md:gap-5'>
+    <motion.div
+      className='flex w-full flex-wrap justify-center gap-4 md:gap-5'
+      variants={containerVariants}
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ once: true, amount: 0.2 }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
@@ -146,11 +177,18 @@ const SkillCard: React.FC<SkillCardProps> = ({
   percentage,
 }) => {
   return (
-    <div
-      className='bg-base-white flex-1 basis-full rounded-xl border-2 p-3 shadow-[0_5px_12px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-105 hover:cursor-pointer sm:basis-[calc(50%-0.5rem)] md:basis-[calc(33.33%-0.75rem)] md:rounded-2xl md:p-4'
+    <motion.div
+      variants={itemVariants}
+      className='bg-base-white flex-1 basis-full rounded-xl border-2 p-3 shadow-[0_5px_12px_rgba(0,0,0,0.05)] transition-colors duration-300 hover:cursor-pointer sm:basis-[calc(50%-0.5rem)] md:basis-[calc(33.33%-0.75rem)] md:rounded-2xl md:p-4'
       style={{
         height: generateClamp(172, 184, 1232),
       }}
+      whileHover={{
+        scale: 1.02,
+        borderColor: '#9D5CFF',
+        boxShadow: '0 20px 40px -15px rgba(157, 92, 255, 0.2)',
+      }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       <div className='flex-start gap-3'>
         <div
@@ -180,11 +218,11 @@ const SkillCard: React.FC<SkillCardProps> = ({
             style={{ width: '0%' }}
             initial={{ width: '0%' }}
             whileInView={{ width: `${percentage}%` }}
-            viewport={{ once: false, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{
               duration: 1.5,
-              ease: [0.5, 1.4, 0.5, 1],
-              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+              delay: 0.1,
             }}
           />
           <div className='h-3 w-full rounded-full bg-neutral-300 md:h-3.5' />
@@ -193,6 +231,6 @@ const SkillCard: React.FC<SkillCardProps> = ({
           {percentage}%
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 };

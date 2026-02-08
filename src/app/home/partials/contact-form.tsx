@@ -208,7 +208,7 @@ const SendMessageCard: React.FC<SendMessageCardProps> = ({
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder='Input Your Name' {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -221,7 +221,7 @@ const SendMessageCard: React.FC<SendMessageCardProps> = ({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder='Input Your Email' {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -234,7 +234,7 @@ const SendMessageCard: React.FC<SendMessageCardProps> = ({
               <FormItem>
                 <FormLabel>Message</FormLabel>
                 <FormControl>
-                  <Textarea placeholder='Input Your Message' {...field} />
+                  <Textarea {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

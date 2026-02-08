@@ -11,35 +11,71 @@ import { CompanyExperience } from '@/components/work-experience/company-experien
 import { workExperienceData } from '@/constants/work-experience-data';
 import { cn } from '@/lib/utils';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring' as const, stiffness: 50, damping: 20 },
+  },
+};
+
 const WorkExperience = () => {
   return (
     <Section id='experience' title='My Work Experience' className=''>
-      <div className='hidden md:block'>
+      <motion.div
+        className='hidden md:block'
+        variants={containerVariants}
+        initial='hidden'
+        whileInView='visible'
+        viewport={{ once: true, amount: 0.1 }}
+      >
         {workExperienceData.map((experience, index) => (
-          <CardsExperience
-            key={`desktop-${experience.company}`}
-            className={index !== 0 && index !== workExperienceData.length - 1 ? 'my-16' : ''}
-          >
-            <CompanyCard
-              icon={experience.icon}
-              company={experience.company}
-              year={experience.year}
-            />
-            <CompanyExperience
-              position={experience.position}
-              jobdesc={experience.jobdesc}
-              isLast={index === workExperienceData.length - 1}
-            />
-          </CardsExperience>
+          <motion.div key={`desktop-${experience.company}`} variants={itemVariants}>
+            <CardsExperience
+              className={
+                index !== 0 && index !== workExperienceData.length - 1
+                  ? 'my-16'
+                  : ''
+              }
+            >
+              <CompanyCard
+                icon={experience.icon}
+                company={experience.company}
+                year={experience.year}
+              />
+              <CompanyExperience
+                position={experience.position}
+                jobdesc={experience.jobdesc}
+                isLast={index === workExperienceData.length - 1}
+              />
+            </CardsExperience>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Mobile */}
       <div className='block md:hidden'>
-        <div className='relative space-y-6'>
+        <motion.div
+          className='relative space-y-6'
+          variants={containerVariants}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.1 }}
+        >
           <div className='absolute left-4'></div>
           {workExperienceData.map((experience, index) => (
-            <MobileExperienceItem
+            <MobileExperienceItem 
               key={`mobile-${experience.company}`}
               icon={experience.icon}
               company={experience.company}
@@ -49,7 +85,7 @@ const WorkExperience = () => {
               isLast={index === workExperienceData.length - 1}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );
@@ -67,11 +103,16 @@ const CardsExperience: React.FC<CardsExperienceProps> = ({
   className,
 }) => {
   return (
-    <div
-      className={cn('grid grid-cols-[14.5rem_1.5rem_auto] gap-y-17', className)}
+    <motion.div
+      className={cn(
+        'grid grid-cols-[14.5rem_1.5rem_auto] gap-y-17 transition-all duration-300 hover:bg-neutral-50/50 rounded-2xl p-4 -mx-4',
+        className
+      )}
+      whileHover={{ scale: 1.01 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
@@ -93,16 +134,17 @@ const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({
   isLast = false,
 }) => {
   return (
-    <div className='relative pl-10'>
+    <motion.div className='relative pl-10' variants={itemVariants}>
       <div className='absolute left-1 flex h-6 w-6 items-center justify-center rounded-full border border-dashed border-neutral-400'>
         <motion.div
           className='bg-primary-200 absolute top-1/2 left-1/2 z-10 aspect-square h-[16px] w-auto -translate-x-1/2 -translate-y-1/2 rounded-full'
           animate={{
-            scale: [1, 1.3, 1],
+            scale: [1, 1.2, 1],
+            opacity: [0.8, 1, 0.8],
           }}
           transition={{
-            duration: 2,
-            ease: 'easeInOut' as const,
+            duration: 3,
+            ease: 'easeInOut',
             repeat: Infinity,
           }}
         />
@@ -125,6 +167,6 @@ const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({
       {!isLast && (
         <div className='absolute top-6 left-4 z-0 h-full border-l border-dashed border-neutral-400'></div>
       )}
-    </div>
+    </motion.div>
   );
 };

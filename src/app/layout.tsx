@@ -4,7 +4,7 @@ import { Poppins } from 'next/font/google';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Portfolio',
+  title: 'Tri Aji Dev - Portfolio',
   description: "Professional portfolio showcasing skills, projects, and experience.",
 };
 
@@ -22,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <link rel='icon' href='/favicon.ico' />
+      </head> 
       <body className={clsx(poppins.variable, 'antialiased')}>{children}</body>
     </html>
   );
