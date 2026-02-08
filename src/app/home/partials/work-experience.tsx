@@ -8,79 +8,47 @@ import { Section } from '@/components/layouts/section';
 import { CompanyCard } from '@/components/work-experience/company-card';
 import { CompanyExperience } from '@/components/work-experience/company-experience';
 
+import { workExperienceData } from '@/constants/work-experience-data';
 import { cn } from '@/lib/utils';
 
 const WorkExperience = () => {
   return (
     <Section id='experience' title='My Work Experience' className=''>
       <div className='hidden md:block'>
-        <CardsExperience>
-          <CompanyCard
-            icon='/company-logos/trust-pilot.svg'
-            company='Trustpilot'
-            year='2021-2024'
-          />
-          <CompanyExperience
-            position='Frontend Developer'
-            jobdesc='Built responsive web interfaces using modern frameworks like React.js, ensuring seamless integration with backend systems. Optimized performance, implemented accessible designs, and delivered clean, reusable code to enhance user experience and scalability.'
-          />
-        </CardsExperience>
-
-        <CardsExperience className='my-16'>
-          <CompanyCard
-            icon='/company-logos/postman.svg'
-            company='Postman'
-            year='2021-2024'
-          />
-          <CompanyExperience
-            position='Frontend Developer'
-            jobdesc='Built responsive web interfaces using modern frameworks like React.js, ensuring seamless integration with backend systems. Optimized performance, implemented accessible designs, and delivered clean, reusable code to enhance user experience and scalability.'
-          />
-        </CardsExperience>
-
-        <CardsExperience>
-          <CompanyCard
-            icon='/company-logos/spotify.svg'
-            company='Spotify'
-            year='2021-2024'
-          />
-          <CompanyExperience
-            position='Frontend Developer'
-            jobdesc='Built responsive web interfaces using modern frameworks like React.js, ensuring seamless integration with backend systems. Optimized performance, implemented accessible designs, and delivered clean, reusable code to enhance user experience and scalability.'
-            isLast={true}
-          />
-        </CardsExperience>
+        {workExperienceData.map((experience, index) => (
+          <CardsExperience
+            key={`desktop-${experience.company}`}
+            className={index !== 0 && index !== workExperienceData.length - 1 ? 'my-16' : ''}
+          >
+            <CompanyCard
+              icon={experience.icon}
+              company={experience.company}
+              year={experience.year}
+            />
+            <CompanyExperience
+              position={experience.position}
+              jobdesc={experience.jobdesc}
+              isLast={index === workExperienceData.length - 1}
+            />
+          </CardsExperience>
+        ))}
       </div>
 
       {/* Mobile */}
       <div className='block md:hidden'>
         <div className='relative space-y-6'>
           <div className='absolute left-4'></div>
-
-          <MobileExperienceItem
-            icon='/company-logos/trust-pilot.svg'
-            company='Trustpilot'
-            year='2021-2024'
-            position='Frontend Developer'
-            jobdesc='Built responsive web interfaces using modern frameworks like React.js, ensuring seamless integration with backend systems. Optimized performance, implemented accessible designs, and delivered clean, reusable code to enhance user experience and scalability.'
-          />
-
-          <MobileExperienceItem
-            icon='/company-logos/postman.svg'
-            company='Postman'
-            year='2021-2024'
-            position='Frontend Developer'
-            jobdesc='Built responsive web interfaces using modern frameworks like React.js, ensuring seamless integration with backend systems. Optimized performance, implemented accessible designs, and delivered clean, reusable code to enhance user experience and scalability.'
-          />
-
-          <MobileExperienceItem
-            icon='/company-logos/spotify.svg'
-            company='Spotify'
-            year='2021-2024'
-            position='Frontend Developer'
-            jobdesc='Built responsive web interfaces using modern frameworks like React.js, ensuring seamless integration with backend systems. Optimized performance, implemented accessible designs, and delivered clean, reusable code to enhance user experience and scalability.'
-            isLast={true}
-          />
+          {workExperienceData.map((experience, index) => (
+            <MobileExperienceItem
+              key={`mobile-${experience.company}`}
+              icon={experience.icon}
+              company={experience.company}
+              year={experience.year}
+              position={experience.position}
+              jobdesc={experience.jobdesc}
+              isLast={index === workExperienceData.length - 1}
+            />
+          ))}
         </div>
       </div>
     </Section>

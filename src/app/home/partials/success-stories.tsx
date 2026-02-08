@@ -1,6 +1,5 @@
 'use client';
 
-import { Icon } from '@iconify/react';
 import { StaticImageData } from 'next/image';
 import Image from 'next/image';
 import React from 'react';
@@ -10,17 +9,16 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
 } from '@/components/ui/carousel';
+import { PaginationDots } from '@/components/ui/pagination-dots';
+import { StarRating } from '@/components/ui/star-rating';
 
 import { SuccessStoriesData } from '@/constants/success-stories-data';
+import { useCarouselPagination } from '@/hooks/useCarouselPagination';
 
 const SuccessStories = () => {
-  const [mobileApi, setMobileApi] = React.useState<CarouselApi>();
-  const [mobileCurrent, setMobileCurrent] = React.useState(0);
-  const [mobileCount, setMobileCount] = React.useState(0);
-  const [desktopApi, setDesktopApi] = React.useState<CarouselApi>();
-  const [desktopCurrent, setDesktopCurrent] = React.useState(0);
+  const mobile = useCarouselPagination();
+  const desktop = useCarouselPagination();
 
   const groupedTestimonials = React.useMemo(() => {
     const result = [];
@@ -30,50 +28,12 @@ const SuccessStories = () => {
     return result;
   }, []);
 
-  const totalDesktopPages = groupedTestimonials.length;
-
-  React.useEffect(() => {
-    if (!mobileApi) return;
-
-    const totalSlides = mobileApi.scrollSnapList().length;
-    setMobileCount(totalSlides);
-    setMobileCurrent(mobileApi.selectedScrollSnap());
-
-    const onSelect = () => {
-      setMobileCurrent(mobileApi.selectedScrollSnap());
-    };
-
-    mobileApi.on('select', onSelect);
-
-    return () => {
-      mobileApi.off('select', onSelect);
-    };
-  }, [mobileApi]);
-  React.useEffect(() => {
-    if (!desktopApi) return;
-
-    setDesktopCurrent(0);
-
-    const onSelect = () => {
-      const pageIndex = desktopApi.selectedScrollSnap();
-      setDesktopCurrent(pageIndex);
-    };
-
-    desktopApi.on('select', onSelect);
-
-    onSelect();
-
-    return () => {
-      desktopApi.off('select', onSelect);
-    };
-  }, [desktopApi]);
-
   return (
     <Section id='testimonials' title='Success Stories from Clients'>
       {/* Mobile*/}
       <div className='md:hidden'>
         <Carousel
-          setApi={setMobileApi}
+          setApi={mobile.setApi}
           className='w-full'
           opts={{
             loop: true,
@@ -98,32 +58,24 @@ const SuccessStories = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className='mt-8 flex items-center justify-center gap-2'>
-            {Array.from({ length: mobileCount }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => mobileApi?.scrollTo(index)}
-                className={
-                  index === mobileCurrent
-                    ? 'bg-primary-200 h-2.5 w-8 cursor-pointer rounded-full'
-                    : 'h-2.5 w-4 cursor-pointer rounded-full bg-neutral-300'
-                }
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          <PaginationDots
+            count={mobile.count}
+            current={mobile.current}
+            onDotClick={mobile.scrollTo}
+            size='sm'
+            className='mt-8'
+          />
         </Carousel>
       </div>
 
       {/* Desktop */}
       <div className='relative mb-12 hidden md:block'>
         <Carousel
-          setApi={setDesktopApi}
+          setApi={desktop.setApi}
           className='w-full'
           opts={{
             loop: true,
             align: 'center',
-            // containScroll: 'trimSnaps',??
             containScroll: 'keepSnaps',
           }}
         >
@@ -149,29 +101,14 @@ const SuccessStories = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          {/* <CarouselPrevious className='bg-primary-50 border-primary-100 hover:bg-primary-100 hover:text-primary-600 -left-12' />
-          <CarouselNext className='bg-primary-50 border-primary-100 hover:bg-primary-100 hover:text-primary-600 -right-12' /> */}
         </Carousel>
 
-        <div className='mt-8 flex items-center justify-center gap-3'>
-          {Array.from({ length: totalDesktopPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                if (desktopApi) {
-                  desktopApi.scrollTo(index);
-                }
-              }}
-              className={
-                desktopCurrent === index
-                  ? 'bg-primary-200 h-3 w-8 cursor-pointer rounded-full'
-                  : 'h-3 w-4 cursor-pointer rounded-full bg-neutral-300 transition-colors duration-300 hover:bg-neutral-400'
-              }
-              aria-label={`Go to page ${index + 1}`}
-            />
-          ))}
-        </div>
+        <PaginationDots
+          count={groupedTestimonials.length}
+          current={desktop.current}
+          onDotClick={desktop.scrollTo}
+          className='mt-8 gap-3'
+        />
       </div>
     </Section>
   );
@@ -200,16 +137,11 @@ const SuccessStoriesCard: React.FC<SuccessStoriesCardProps> = ({
       <p className='text-sm-medium md:text-md-medium line-clamp-4 max-h-28 pt-3 pb-5 text-center text-neutral-950 md:pt-4 md:pb-8'>
         {description}
       </p>
-      <div className='flex-center mt-5 mb-3 gap-0 md:mt-8 md:mb-4'>
-        {new Array(rating).fill(0).map((_, index) => (
-          <Icon
-            key={index}
-            icon='line-md:star-filled'
-            className='text-secondary-200 text-3xl'
-          />
-        ))}
-        <span>{rating}</span>
-      </div>
+      <StarRating
+        rating={rating}
+        showValue
+        className='mt-5 mb-3 md:mt-8 md:mb-4'
+      />
       <div className='flex-center flex-col text-center'>
         <p className='text-sm-semibold md:text-md-semibold text-neutral-950'>
           {personName}

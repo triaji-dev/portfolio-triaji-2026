@@ -26,8 +26,8 @@ export const MarqueeChipRow: React.FC<MarqueeChipRowProps> = ({
         {
           'animate-marquee flex-row': direction === 'left',
           'animate-marquee-vertical flex-col': direction === 'right',
-          'group-hover:[animation-play-state:paused]': pauseOnHover,
-          '[animation-direction:reverse]': reverse,
+          'group-hover:paused': pauseOnHover,
+          'direction-reverse': reverse,
         },
         className
       )}

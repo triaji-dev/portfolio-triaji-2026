@@ -151,9 +151,6 @@ const SendMessageCard: React.FC<SendMessageCardProps> = ({
   className,
 }) => {
   const [loading, setLoading] = React.useState(false);
-  // const [status, setStatus] = React.useState<'idle' | 'success' | 'error'>(
-  //   'idle'
-  // );
   const [showDialog, setShowDialog] = React.useState(false);
   const [variant, setVariant] = React.useState<'success' | 'error'>('success');
 
@@ -163,7 +160,6 @@ const SendMessageCard: React.FC<SendMessageCardProps> = ({
   async function onSubmit(data: z.infer<typeof contactSchema>) {
     try {
       setLoading(true);
-      // setStatus('idle');
 
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
@@ -244,20 +240,6 @@ const SendMessageCard: React.FC<SendMessageCardProps> = ({
               </FormItem>
             )}
           />
-
-          {/* {status === 'success' && (
-            <div className='mb-4 rounded-md bg-green-50 p-3 text-green-700'>
-              Thank you for reaching out. Your message has been sent
-              successfully!
-            </div>
-          )}
-
-          {status === 'error' && (
-            <div className='mb-4 rounded-md bg-red-50 p-3 text-red-700'>
-              Failed to send message. Please try again.
-            </div>
-          )} */}
-
           <Button
             variant='secondary'
             disabled={loading}

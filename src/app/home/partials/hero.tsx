@@ -13,46 +13,35 @@ import { generateClampInverse } from '@/functions/generate-clamp-inverse';
 
 const Hero = () => {
   const ref = useRef(null);
-  const animationPropsLeft = {
-    initial: { x: 150, opacity: 0.1 },
-    whileInView: { x: 0, opacity: 1 },
-    viewport: { once: false, amount: 0.1 },
-    transition: {
-      type: 'spring' as const,
-      stiffness: 150,
-      damping: 70,
-    },
+
+  const createSlideAnimation = (
+    direction: 'left' | 'right' | 'top' | 'bottomRight'
+  ) => {
+    const initialMap = {
+      left: { x: 150, opacity: 0.1 },
+      right: { x: -150, opacity: 0.1 },
+      top: { y: 150, opacity: 0.1 },
+      bottomRight: { x: -100, y: 100, opacity: 0.1 },
+    };
+    const whileInViewMap = {
+      left: { x: 0, opacity: 1 },
+      right: { x: 0, opacity: 1 },
+      top: { y: 0, opacity: 1 },
+      bottomRight: { x: 0, y: 0, opacity: 1 },
+    };
+
+    return {
+      initial: initialMap[direction],
+      whileInView: whileInViewMap[direction],
+      viewport: { once: false, amount: 0.1 },
+      transition: {
+        type: 'spring' as const,
+        stiffness: 150,
+        damping: 70,
+      },
+    };
   };
-  const animationPropsRight = {
-    initial: { x: -150, opacity: 0.1 },
-    whileInView: { x: 0, opacity: 1 },
-    viewport: { once: false, amount: 0.1 },
-    transition: {
-      type: 'spring' as const,
-      stiffness: 150,
-      damping: 70,
-    },
-  };
-  const animationPropsBottomRight = {
-    initial: { x: -100, y: 100, opacity: 0.1 },
-    whileInView: { x: 0, y: 0, opacity: 1 },
-    viewport: { once: false, amount: 0.1 },
-    transition: {
-      type: 'spring' as const,
-      stiffness: 150,
-      damping: 70,
-    },
-  };
-  const animationPropsTop = {
-    initial: { y: 150, opacity: 0.1 },
-    whileInView: { y: 0, opacity: 1 },
-    viewport: { once: false, amount: 0.1 },
-    transition: {
-      type: 'spring' as const,
-      stiffness: 150,
-      damping: 70,
-    },
-  };
+
   return (
     <>
       <div
@@ -68,11 +57,9 @@ const Hero = () => {
           ref={ref}
         >
           <motion.h1
-            initial={animationPropsTop.initial}
-            whileInView={animationPropsTop.whileInView}
-            viewport={animationPropsTop.viewport}
+            {...createSlideAnimation('top')}
             transition={{
-              ...animationPropsTop.transition,
+              ...createSlideAnimation('top').transition,
               delay: 0.3,
             }}
             className='text-neutral-25 absolute left-1/2 z-20 w-full -translate-x-1/2 text-center font-extrabold'
@@ -91,11 +78,9 @@ const Hero = () => {
           />
 
           <motion.div
-            initial={animationPropsTop.initial}
-            whileInView={animationPropsTop.whileInView}
-            viewport={animationPropsTop.viewport}
+            {...createSlideAnimation('top')}
             transition={{
-              ...animationPropsTop.transition,
+              ...createSlideAnimation('top').transition,
               delay: 0.1,
             }}
             className='absolute left-1/2 z-20 aspect-square -translate-x-1/2'
@@ -113,11 +98,9 @@ const Hero = () => {
             />
           </motion.div>
           <motion.div
-            initial={animationPropsBottomRight.initial}
-            whileInView={animationPropsBottomRight.whileInView}
-            viewport={animationPropsBottomRight.viewport}
+            {...createSlideAnimation('bottomRight')}
             transition={{
-              ...animationPropsBottomRight.transition,
+              ...createSlideAnimation('bottomRight').transition,
               delay: 0.1,
             }}
           >
@@ -145,11 +128,9 @@ const Hero = () => {
             />
           </motion.div>
           <motion.div
-            initial={animationPropsRight.initial}
-            whileInView={animationPropsRight.whileInView}
-            viewport={animationPropsRight.viewport}
+            {...createSlideAnimation('right')}
             transition={{
-              ...animationPropsRight.transition,
+              ...createSlideAnimation('right').transition,
               delay: 0.5,
             }}
           >
@@ -166,23 +147,19 @@ const Hero = () => {
               }
               className='translate-x-[-34%] translate-y-[20%] -rotate-[10.9deg] whitespace-nowrap md:translate-x-[0%] md:translate-y-[0%] md:-rotate-[3.24deg]'
               style={{
-                // right: generateClamp(224, 920, 1440),
                 left: generateClamp(0, 226, 1440),
                 top: generateClamp(484, 658, 1440),
                 width: generateClamp(166, 283, 1440),
                 height: generateClamp(80, 104, 1440),
                 fontSize: generateClamp(14, 24, 1440),
                 lineHeight: generateClamp(24, 30, 1440),
-                // rotate: generateClamp(-10.9, -3.24, 1440),
               }}
             />
           </motion.div>
           <motion.div
-            initial={animationPropsLeft.initial}
-            whileInView={animationPropsLeft.whileInView}
-            viewport={animationPropsLeft.viewport}
+            {...createSlideAnimation('left')}
             transition={{
-              ...animationPropsLeft.transition,
+              ...createSlideAnimation('left').transition,
               delay: 0.3,
             }}
           >

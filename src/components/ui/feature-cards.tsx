@@ -57,7 +57,6 @@ const FeatureCard: React.FC<FeatureCardsProps> = ({
             alt={title}
             width={width}
             height={height}
-            // className='h-[40px] w-[124px] md:h-[52px] md:w-[168px]'
             className='aspect-auto'
           />
         </div>

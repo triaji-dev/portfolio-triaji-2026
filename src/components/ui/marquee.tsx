@@ -16,14 +16,14 @@ export const Marquee: React.FC<MarqueeProps> = ({
   reverse = false,
   pauseOnHover = true,
   vertical = false,
-  repeat = 4, //repeat 4 times coz item nya sdkit, klo di set default (1) aja ga cukup
+  repeat = 4,
   children,
   ...props
 }) => {
   return (
     <div
       className={cn(
-        'group flex [gap:var(--gap)] overflow-hidden [--duration:30s] [--gap:0.5rem]',
+        'group flex gap-(--gap) overflow-hidden [--duration:30s] [--gap:0.5rem]',
 
         className
       )}
@@ -34,11 +34,11 @@ export const Marquee: React.FC<MarqueeProps> = ({
         .map((_, i) => (
           <div
             key={i}
-            className={cn('flex shrink-0 justify-around [gap:var(--gap)]', {
+            className={cn('flex shrink-0 justify-around gap-(--gap)', {
               'animate-marquee flex-row': !vertical,
               'animate-marquee-vertical flex-col': vertical,
-              'group-hover:[animation-play-state:paused]': pauseOnHover,
-              '[animation-direction:reverse]': reverse,
+              'group-hover:paused': pauseOnHover,
+              'direction-reverse': reverse,
             })}
           >
             {children}

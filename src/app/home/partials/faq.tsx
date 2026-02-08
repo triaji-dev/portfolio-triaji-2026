@@ -15,7 +15,7 @@ const Faq = () => {
   return (
     <div id='faq' className='custom-container mt-20'>
       <div
-        className='flex flex-col gap-[0px] rounded-4xl border-1 border-neutral-300 bg-neutral-50 px-4 py-5 md:grid md:grid-cols-[22.3rem_auto] md:p-10'
+        className='flex flex-col gap-0 rounded-4xl border border-neutral-300 bg-neutral-50 px-4 py-5 md:grid md:grid-cols-[22.3rem_auto] md:p-10'
         style={{ gap: generateClamp(0, 153, 1440) }}
       >
         <div className='order-1 flex flex-col gap-8 md:order-1 md:justify-between md:gap-51'>
@@ -32,7 +32,7 @@ const Faq = () => {
               Have Questions?
             </h2>
           </div>
-          <div className='bg-base-white order-2 hidden flex-col gap-2.5 rounded-2xl border-1 border-neutral-300 p-6 md:order-2 md:flex'>
+          <div className='bg-base-white order-2 hidden flex-col gap-2.5 rounded-2xl border border-neutral-300 p-6 md:order-2 md:flex'>
             <Image
               src='/images/person-orange.png'
               alt='faq'
@@ -65,7 +65,7 @@ const Faq = () => {
         </div>
 
         {/* Mobile */}
-        <div className='bg-base-white order-3 flex flex-col gap-4 rounded-2xl border-1 border-neutral-300 p-4 md:hidden'>
+        <div className='bg-base-white order-3 flex flex-col gap-4 rounded-2xl border border-neutral-300 p-4 md:hidden'>
           <Image
             src='/images/person-orange.png'
             alt='faq'

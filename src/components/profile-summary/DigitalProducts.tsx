@@ -38,7 +38,6 @@ const DigitalProducts: React.FC<DigitalProductsProps> = ({ className }) => (
       style={{
         top: generateClampInverse(19, 105, 1232),
         left: generateClamp(240, 397, 1232),
-        // height: generateClampInverse(367, 360, 1232),
       }}
     >
       <Image

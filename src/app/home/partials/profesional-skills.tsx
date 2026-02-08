@@ -10,18 +10,16 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
 } from '@/components/ui/carousel';
+import { PaginationDots } from '@/components/ui/pagination-dots';
 
 import { ProfessionalSkillsData } from '@/constants/professional-skills-data';
 import { generateClamp } from '@/functions/generate-clamp';
+import { useCarouselPagination } from '@/hooks/useCarouselPagination';
 
 export const ProfessionalSkills = () => {
-  const [mobileApi, setMobileApi] = React.useState<CarouselApi>();
-  const [mobileCurrent, setMobileCurrent] = React.useState(0);
-  const [mobileCount, setMobileCount] = React.useState(0);
-  const [desktopApi, setDesktopApi] = React.useState<CarouselApi>();
-  const [desktopCurrent, setDesktopCurrent] = React.useState(0);
+  const mobile = useCarouselPagination();
+  const desktop = useCarouselPagination();
 
   const groupedSkillsDesktop = React.useMemo(() => {
     const result = [];
@@ -39,44 +37,6 @@ export const ProfessionalSkills = () => {
     return result;
   }, []);
 
-  const totalDesktopPages = groupedSkillsDesktop.length;
-
-  React.useEffect(() => {
-    if (!mobileApi) return;
-
-    const totalSlides = mobileApi.scrollSnapList().length;
-    setMobileCount(totalSlides);
-    setMobileCurrent(mobileApi.selectedScrollSnap());
-
-    const onSelect = () => {
-      setMobileCurrent(mobileApi.selectedScrollSnap());
-    };
-
-    mobileApi.on('select', onSelect);
-
-    return () => {
-      mobileApi.off('select', onSelect);
-    };
-  }, [mobileApi]);
-
-  React.useEffect(() => {
-    if (!desktopApi) return;
-
-    setDesktopCurrent(0);
-    const onSelect = () => {
-      const pageIndex = desktopApi.selectedScrollSnap();
-      setDesktopCurrent(pageIndex);
-    };
-
-    desktopApi.on('select', onSelect);
-
-    onSelect();
-
-    return () => {
-      desktopApi.off('select', onSelect);
-    };
-  }, [desktopApi]);
-
   return (
     <Section
       id='skills'
@@ -86,7 +46,7 @@ export const ProfessionalSkills = () => {
       {/* Mobile */}
       <div className='md:hidden'>
         <Carousel
-          setApi={setMobileApi}
+          setApi={mobile.setApi}
           className='mx-auto w-full px-0'
           opts={{ loop: true, align: 'center', containScroll: 'trimSnaps' }}
         >
@@ -110,27 +70,19 @@ export const ProfessionalSkills = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className='flex-center mt-3 gap-2'>
-            {Array.from({ length: mobileCount }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => mobileApi?.scrollTo(index)}
-                className={
-                  index === mobileCurrent
-                    ? 'bg-primary-200 h-3 w-8 cursor-pointer rounded-full'
-                    : 'hover:bg-primary-200 h-3 w-4 cursor-pointer rounded-full bg-neutral-300 transition-colors duration-300'
-                }
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          <PaginationDots
+            count={mobile.count}
+            current={mobile.current}
+            onDotClick={mobile.scrollTo}
+            className='mt-3'
+          />
         </Carousel>
       </div>
 
       {/* Desktop*/}
       <div className='relative hidden md:block'>
         <Carousel
-          setApi={setDesktopApi}
+          setApi={desktop.setApi}
           className='custom-container mx-auto w-full px-0'
           opts={{
             loop: true,
@@ -157,20 +109,12 @@ export const ProfessionalSkills = () => {
           </CarouselContent>
         </Carousel>
 
-        <div className='mt-6 flex h-3 items-center justify-center gap-3 rounded-full md:mt-9'>
-          {Array.from({ length: totalDesktopPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => desktopApi?.scrollTo(index)}
-              className={
-                desktopCurrent === index
-                  ? 'bg-primary-200 h-3 w-8 cursor-pointer rounded-full transition-colors duration-300'
-                  : 'h-3 w-4 cursor-pointer rounded-full bg-neutral-300 transition-colors duration-300 hover:bg-neutral-400'
-              }
-              aria-label={`Go to page ${index + 1}`}
-            />
-          ))}
-        </div>
+        <PaginationDots
+          count={groupedSkillsDesktop.length}
+          current={desktop.current}
+          onDotClick={desktop.scrollTo}
+          className='mt-6 md:mt-9'
+        />
       </div>
     </Section>
   );
@@ -203,7 +147,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
 }) => {
   return (
     <div
-      className='bg-base-white flex-1 basis-[100%] rounded-xl border-2 p-3 shadow-[0_5px_12px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-105 hover:cursor-pointer sm:basis-[calc(50%-0.5rem)] md:basis-[calc(33.33%-0.75rem)] md:rounded-2xl md:p-4'
+      className='bg-base-white flex-1 basis-full rounded-xl border-2 p-3 shadow-[0_5px_12px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-105 hover:cursor-pointer sm:basis-[calc(50%-0.5rem)] md:basis-[calc(33.33%-0.75rem)] md:rounded-2xl md:p-4'
       style={{
         height: generateClamp(172, 184, 1232),
       }}

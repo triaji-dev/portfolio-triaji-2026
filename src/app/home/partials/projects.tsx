@@ -9,7 +9,6 @@ import { LatestWorksData } from '@/constants/latest-works-data';
 const LatestWork = () => {
   return (
     <Section id='projects' title='My Latest Work' className='!md:pb-16'>
-      {/* why the important doesnt work??? */}
       <Cards>
         {LatestWorksData.map((work, index) => (
           <Card
@@ -60,12 +59,11 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className='flex-1 basis-91'>
-      {/* bisa pake flex-1 dengan basis yang dideclare? it is likely basis-91 has override the flex-1 basis 0% */}
       <div className='flex-between md:text-sm-regular text-xs-regular mb-5 gap-2.5 text-neutral-950'>
-        <div className='rounded-full border-1 border-dashed border-neutral-400 px-4 py-1'>
+        <div className='rounded-full border border-dashed border-neutral-400 px-4 py-1'>
           <h4>{dashboard}</h4>
         </div>
-        <div className='rounded-full border-1 border-dashed border-neutral-400 px-4 py-1'>
+        <div className='rounded-full border border-dashed border-neutral-400 px-4 py-1'>
           <h4>{year}</h4>
         </div>
       </div>
