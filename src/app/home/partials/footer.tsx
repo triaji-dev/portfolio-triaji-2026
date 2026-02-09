@@ -19,7 +19,7 @@ const Footer = () => {
             />
           </Link>
           <p className='md:text-md-regular text-xs-regular text-neutral-25 md:pt-1'>
-            © 2025 TRI AJI DEV. All rights reserved.
+            © 2026 TRI AJI DEV. All rights reserved.
           </p>
         </div>
         <div className='flex gap-4'>
